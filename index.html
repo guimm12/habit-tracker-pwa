@@ -34,7 +34,7 @@
 		<script>
 			if ("serviceWorker" in navigator) {
 				navigator.serviceWorker
-					.register("/service-worker.js")
+					.register("/habit-tracker-pwa/service-worker.js")
 					.then((registration) => {
 						console.log("ServiceWorker registration successful with scope: ", registration.scope);
 					})
