@@ -1,5 +1,15 @@
 const CACHE_NAME = "habit-tracker-cache-v1";
-const urlsToCache = ["/", "/index.html", "/style.css", "/script.js", "/manifest.json", "/icons/icon-192x192.png", "/icons/icon-512x512.png"];
+const BASE_PATH = "/habit-tracker-pwa/"; // Repository name
+
+const urlsToCache = [
+	BASE_PATH, // Root URL
+	BASE_PATH + "index.html",
+	BASE_PATH + "style.css",
+	BASE_PATH + "script.js",
+	BASE_PATH + "manifest.json",
+	BASE_PATH + "icons/icon-192x192.png",
+	BASE_PATH + "icons/icon-512x512.png",
+];
 
 // Install the service worker and cache the necessary files
 self.addEventListener("install", (event) => {
