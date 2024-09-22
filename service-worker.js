@@ -1,5 +1,5 @@
 const CACHE_NAME = "habit-tracker-cache-v1";
-const BASE_PATH = "/habit-tracker-pwa/"; // Repository name
+const BASE_PATH = "/test-pwa/"; // Repository name
 
 const urlsToCache = [
 	BASE_PATH, // Root URL

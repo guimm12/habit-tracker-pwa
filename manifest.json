@@ -2,11 +2,12 @@
 	"name": "Habit Tracker",
 	"short_name": "Habits",
 	"description": "A simple habit tracker to manage your daily tasks.",
-	"id": "/habit-tracker-pwa/",
-	"start_url": "/habit-tracker-pwa/",
+	"id": "/test-pwa/",
+	"start_url": "/test-pwa/",
 	"display": "standalone",
 	"background_color": "#f0f0f0",
 	"theme_color": "#4CAF50",
+	"permissions": ["storage"],
 	"icons": [
 		{
 			"src": "icons/icon-192x192.png",
