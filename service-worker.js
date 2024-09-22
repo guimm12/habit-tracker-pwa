@@ -1,27 +1,37 @@
 const CACHE_NAME = "habit-tracker-cache-v1";
 const BASE_PATH = "/test-pwa/"; // Repository name
 
-const urlsToCache = [
-	BASE_PATH, // Root URL
-	BASE_PATH + "index.html",
-	BASE_PATH + "style.css",
-	BASE_PATH + "script.js",
-	BASE_PATH + "manifest.json",
-	BASE_PATH + "icons/icon-192x192.png",
-	BASE_PATH + "icons/icon-512x512.png",
-];
+const urls = ["", "index.html", "style.css", "script.js", "manifest.json", "icons/icon-192x192.png", "icons/icon-512x512.png"];
+const urlsToCache = urls.map((url) => BASE_PATH + url);
 
-// Install the service worker and cache the necessary files
+// Install the service worker and cache resources
 self.addEventListener("install", (event) => {
-	event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache)));
+	event.waitUntil(
+		caches.open(CACHE_NAME).then((cache) => {
+			return cache.addAll(urlsToCache);
+		})
+	);
 });
 
-// Intercept network requests and respond from cache if available
+// Network-first strategy
 self.addEventListener("fetch", (event) => {
-	event.respondWith(caches.match(event.request).then((response) => response || fetch(event.request)));
+	event.respondWith(
+		fetch(event.request)
+			.then((response) => {
+				// If the request is successful, clone and store it in the cache
+				return caches.open(CACHE_NAME).then((cache) => {
+					cache.put(event.request, response.clone());
+					return response;
+				});
+			})
+			.catch(() => {
+				// If the network request fails, return from cache
+				return caches.match(event.request);
+			})
+	);
 });
 
-// Update the service worker and remove old caches
+// Update the service worker
 self.addEventListener("activate", (event) => {
 	const cacheWhitelist = [CACHE_NAME];
 	event.waitUntil(
